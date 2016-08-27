@@ -1,36 +1,83 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Omnipointment</title>
+		<title>Swap The First Letter Of Your First And Last Name</title>
 		<link rel="stylesheet" type="text/css" href="style/reset.css">
-		<link rel="stylesheet" type="text/css" href="style/main.css">
 		<!--<link rel="icon" type="img/png" href="style/favicon.png" style="width:30px;">-->
-		<!-- IMPORTED SCRIPTS -->
-		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900' rel='stylesheet' type='text/css'>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- NEED FIREBASE LATER -->
 		<style>
 
+			html{
+				background: #24467f;
+				overflow: hidden;
+			}
 
+			input#name{
+				border: none;
+				outline: none;
+				display: block;
+				margin: 40vh auto;
+				background: transparent;
+				width: 90vw;
+				height: 15vh;
+				font-size: 10vh;
+				line-height: 15vh;
+				text-align: center;
+				color: rgba(255, 255, 255, 1.0);
+			}
+
+			input#name:focus{
+				color: rgba(255, 255, 255, 0.5);
+				border-bottom: 1vh solid rgba(255, 255, 255, 0.5);
+			}
+
+			input#blur-hack {
+				opacity: 0;
+			}
 
 		</style>
 	</head>
 
 	<body>
 
-		<h1>Omnipointment @ Wildhacks</h1>
-		<h2>Intelligent group scheduling solutions for all.</h2>
-		<h3>Built on HTML/CSS/JS/Firebase</h3>
-		<p>We're better than When2Meet and Doodle combined:</p>
-		<ul>
-			<li>Quick and dirty scheduling.</li>
-			<li>Help fill out your meeting requests faster.</li>
-			<li>Intuitive user experience.</li>
-		</ul>
+		<input type="text" id="name" value="Jason Feldman">
+		<input type="text" id="blur-hack">
 
 		<script type="text/javascript">
 
-			console.log("LOADED MAIN");
+			var nameInput = document.getElementById('name');
+			var blurHack = document.getElementById('blur-hack');
+
+			function isVowel(letter){
+				var vowels = {
+					'a': true,
+					'e': true,
+					'i': true,
+					'o': true,
+					'u': true
+				}
+				if(letter in vowels){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+
+			function swapTheFirstLetterOfYourFirstAndLastName(){
+				var normal = nameInput.value;
+				var parts = normal.split(' ');
+				var first = parts[1].charAt(0).toUpperCase() + parts[0].substr(1).toLowerCase();
+				var last = parts[0].charAt(0).toUpperCase() + parts[1].substr(1).toLowerCase();
+				var swapped = first + ' ' + last;
+				nameInput.value = swapped;
+				blurHack.focus();
+			}
+
+			nameInput.addEventListener('keypress', function(event){
+				if(event.keyCode === 13){
+					swapTheFirstLetterOfYourFirstAndLastName();
+				}
+			});
 
 		</script>
 		
