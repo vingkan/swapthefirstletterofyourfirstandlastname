@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>strtp</title>
+		<link rel="stylesheet" type="text/css" href="style/reset.css">
+		<!--<link rel="icon" type="img/png" href="style/favicon.png" style="width:30px;">-->
+		<style>
+
+			html{
+				background: red;
+				overflow: hidden;
+			}
+
+			input#name{
+				border: none;
+				outline: none;
+				display: block;
+				margin: 40vh auto;
+				background: transparent;
+				width: 90vw;
+				height: 15vh;
+				font-size: 10vh;
+				line-height: 15vh;
+				text-align: center;
+				color: rgba(255, 255, 255, 1.0);
+			}
+
+			input#name:focus{
+				color: rgba(255, 255, 255, 0.5);
+				border-bottom: 1vh solid rgba(255, 255, 255, 0.5);
+			}
+
+			input#blur-hack {
+				opacity: 0;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<input type="text" id="name" placeholder="type name and hit enter">
+		<input type="text" id="blur-hack">
+
+		<script type="text/javascript">
+
+			var nameInput = document.getElementById('name');
+			var blurHack = document.getElementById('blur-hack');
+
+			function isVowel(ltr){
+				var letter = ltr.toLowerCase();
+				var vowels = {
+					'a': true,
+					'e': true,
+					'i': true,
+					'o': true,
+					'u': true
+				}
+				if(letter in vowels){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+
+			function swapTheFirstLetterOfYourFirstAndLastName(){
+				var normal = nameInput.value;
+				var parts = normal.split(' ');
+				var first = parts[1].charAt(0).toUpperCase() + parts[0].substr(1).toLowerCase();
+				var last = parts[0].charAt(0).toUpperCase() + parts[1].substr(1).toLowerCase();
+				var swapped = first + ' ' + last;
+				nameInput.value = swapped;
+				blurHack.focus();
+			}
+
+			function strtp(){
+				var normal = nameInput.value;
+				var strtpd = normal[0];
+				for(var i = 1; i < normal.length; i++){
+					var c = normal[i];
+					if(!isVowel(c)){
+						strtpd += c;
+					}
+				}
+				nameInput.value = strtpd;
+				blurHack.focus();
+			}
+
+			nameInput.addEventListener('keypress', function(event){
+				if(event.keyCode === 13){
+					strtp();
+				}
+			});
+
+		</script>
+		
+	</body>
+</html>
